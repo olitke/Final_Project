@@ -18,9 +18,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r data}
 bad_drivers <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/bad-drivers/bad-drivers.csv")
 
-covid19 <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
+covid19 <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
 
-census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1")
+census_pop_est_2018 <- read.csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1")
 ```
 
 ```{r}
@@ -37,7 +37,9 @@ gs4_deauth()
 ```
 
 ```{r}
-
+covid19 %>%
+  left_join(census_pop_est_2018,
+            by = c("state" = "state"))
 ```
 
 
