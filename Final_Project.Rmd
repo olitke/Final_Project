@@ -20,6 +20,8 @@ bad_drivers <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/
 
 covid19 <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
 
+mask_data <- read.csv("https://raw.githubusercontent.com/kristinbryan/covid-19-data/master/mask-use/mask-use-by-county.csv")
+
 census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1") %>% 
   separate(state, into = c("dot","state"), extra = "merge") %>% 
   select(-dot) %>% 
@@ -38,25 +40,112 @@ library(sf)
 library(ggthemes)
 ```
 
-```{r}
-bad_drivers_lower <- bad_drivers %>% 
-  mutate(state = str_to_lower(State))
+# Welcome to our final!
+We chose to use data from fivethirtyeight.com to tell a story about the world we live in and make somefhdsafhdjsaklfa
 
-car_covid_data <- covid19 %>% 
-  filter(date == max(date)) %>% 
-  mutate(state = str_to_lower(state)) %>% 
-  left_join(census_pop_est_2018, 
-            by = "state") %>% 
-  left_join(bad_drivers_lower, 
-            by = "state") %>% 
-  select(!State & !date) %>% 
-  na.omit()
+#
+```{r}
+mask_data %>% 
+  mutate(x = ifelse(COUNTYFP <= 1133, "alabama", 
+                    ifelse(COUNTYFP <= 2290, "alaska",
+                           ifelse(COUNTYFP <= 4027, "arizona", 
+                                  ifelse(COUNTYFP <= 5149, "arkansas",
+                                         ifelse(COUNTYFP <= 6115, "california",
+                                                ifelse(COUNTYFP <= 8125, "colorado",
+                                                       ifelse(COUNTYFP <= 9015, "connecticut",
+                                                              ifelse(COUNTYFP <= 10005, "delaware",
+                                                                     ifelse(COUNTYFP <= 11001, "district of columbia",
+                                                                            ifelse(COUNTYFP <= 12133, "florida",
+                                                                                   ifelse(COUNTYFP <= 13321, "georgia",
+                                                                                          ifelse(COUNTYFP <= 15009, "hawaii",
+                                                                                                 ifelse(COUNTYFP <= 16087, "idaho",
+                                                                                                        ifelse(COUNTYFP <= 17203, "illinois",
+                                                                                                               ifelse(COUNTYFP <= 18183, "indiana",
+                                                                                                                      ifelse(COUNTYFP <= 19197, "iowa",
+                                                                                                                             ifelse(COUNTYFP <= 20209, "kansas",
+                                                                                                                                    ifelse(COUNTYFP < 21000, "kentucky",
+                                                                                                                                           ifelse(COUNTYFP < 22000, "louisiana",
+                                                                                                                                                  ifelse(COUNTYFP < 23000, "maine",
+                                                                                                                                                         ifelse(COUNTYFP < 24000, "maryland",
+                                                                                                                                                                ifelse(COUNTYFP < 25000, "massachusetts",
+                                                                                                                                                                       ifelse(COUNTYFP < 26000, "michigan",
+                                                                                                                                                                              ifelse(COUNTYFP < 27000, "minnesota",
+                                                                                                                                                                                     ifelse(COUNTYFP < 28000, "mississippi",
+                                                                                                                                                                                            ifelse(COUNTYFP < 29000, "missouri",
+                                                                                                                                                                                                   ifelse(COUNTYFP < 30000, "montana",
+                                                                                                                                                                                                          ifelse(COUNTYFP < 31000, "nebraska",
+                                                                                                                                                                                                                 ifelse(COUNTYFP < 32000, "nevada",
+                                                                                                                                                                                                                        ifelse(COUNTYFP < 33000, "new hampshire",
+                                                                                                                                                                                                                               ifelse(COUNTYFP < 34000, "new jersey",
+                                                                                                                                                                                                                                      ifelse(COUNTYFP < 35000, "new mexico",
+                                                                                                                                                                                                                                             ifelse(COUNTYFP < 36000, "new york",
+                                                                                                                                                                                                                                                    ifelse(COUNTYFP < 37000, "north carolina",
+                                                                                                                                                                                                                                                           ifelse(COUNTYFP < 38000, "north dakota",
+                                                                                                                                                                                                                                                                  ifelse(COUNTYFP < 39000, "ohio",
+                                                                                                                                                                                                                                                                         ifelse(COUNTYFP < 40000, "oklahoma",
+                                                                                                                                                                                                                                                                                ifelse(COUNTYFP < 41000, "oregon",
+                                                                                                                                                                                                                                                                                       ifelse(COUNTYFP < 42000, "pennsylvania",
+                                                                                                                                                                                                                                                                                              ifelse(COUNTYFP < 44000, "rhode island",
+                                                                                                                                                                                                                                                                                                     ifelse(COUNTYFP < 45000, "south carolina",
+                                                                                                                                                                                                                                                                                                            ifelse(COUNTYFP < 46000, "south dakota",
+                                                                                                                                                                                                                                                                                                                   ifelse(COUNTYFP < 47000, "tennessee",
+                                                                                                                                                                                                                                                                                                                          ifelse(COUNTYFP < 48000, "texas",
+                                                                                                                                                                                                                                                                                                                                 ifelse(COUNTYFP < 49000, "utah",
+                                                                                                                                                                                                                                                                                                                                        ifelse(COUNTYFP < 50000, "vermont",
+                                                                                                                                                                                                                                                                                                                                               ifelse(COUNTYFP < 51000, "virginia",
+                                                                                                                                                                                                                                                                                                                                                      ifelse(COUNTYFP < 53000, "washington",
+                                                                                                                                                                                                                                                                                                                                                             ifelse(COUNTYFP < 54000, "west virginia",
+                                                                                                                                                                                                                                                                                                                                                                    ifelse(COUNTYFP < 55000, "wisconsin",
+                                                                                                                                                                                                                                                                                                                                                                           ifelse(COUNTYFP < 56000, "wyoming", ""))))))))))))))))))))))))))))))))))))))))))))))))))))
   
-car_covid_data
 ```
 
 
 
 
+```{r}
+#combine the data here 
+```
+
+
+```{r}
+#covid map
+
+car_covid_data %>% 
+  group_by(state) %>% 
+  mutate(case_rate = cases/est_pop_2018) %>% 
+  ggplot(aes(fill = case_rate)) + 
+  geom_map(aes(map_id = state),
+           map = states_map) + 
+  expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map()
+
+```
+
+```{r}
+mask_data %>% 
+  group_by(#need to make a state variable) %>% 
+    mutate(mask_rate = ALWAYS / est_pop_2018) %>% 
+      ggplot(aes(fill = mask_rate)) + 
+      geom_map(aes(map_id = states), 
+               map = states_map) + 
+      expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map()
+```
+
+
+```{r}
+#where will you die of what
+covid_data %>% 
+  group_by(state) %>% 
+  mutate(case_rate = cases/est_pop_2018) %>% 
+  
+  # we need to 
+  ggplot(aes(fill = death_rate)) + 
+  geom_map(aes(map_id = state),
+           map = states_map) + 
+  expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map()
+```
 
 
