@@ -38,12 +38,70 @@ library(gplots)
 library(RColorBrewer)
 library(sf)
 library(ggthemes)
+library(usmap)
 ```
 
 # Welcome to our final!
 We chose to use data from fivethirtyeight.com to tell a story about the world we live in and make somefhdsafhdjsaklfa
 
 #
+```{r}
+mask_data
+
+mask_data %>%  
+  mutate(state = usmap::fips_info(county.fips))
+```
+
+
+
+
+```{r}
+#combine the data here 
+```
+
+
+```{r}
+#covid map
+
+car_covid_data %>% 
+  group_by(state) %>% 
+  mutate(case_rate = cases/est_pop_2018) %>% 
+  ggplot(aes(fill = case_rate)) + 
+  geom_map(aes(map_id = state),
+           map = states_map) + 
+  expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map()
+
+```
+
+```{r}
+mask_data %>% 
+  group_by(#need to make a state variable) %>% 
+    mutate(mask_rate = ALWAYS / est_pop_2018) %>% 
+      ggplot(aes(fill = mask_rate)) + 
+      geom_map(aes(map_id = states), 
+               map = states_map) + 
+      expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map()
+```
+
+
+```{r}
+#where will you die of what
+covid_data %>% 
+  group_by(state) %>% 
+  mutate(case_rate = cases/est_pop_2018) %>% 
+  
+  # we need to 
+  ggplot(aes(fill = death_rate)) + 
+  geom_map(aes(map_id = state),
+           map = states_map) + 
+  expand_limits(x = states_map$long, y = states_map$lat) + 
+  theme_map()
+```
+
+
+
 ```{r}
 mask_data %>% 
   mutate(x = ifelse(COUNTYFP <= 1133, "alabama", 
@@ -99,53 +157,4 @@ mask_data %>%
                                                                                                                                                                                                                                                                                                                                                                            ifelse(COUNTYFP < 56000, "wyoming", ""))))))))))))))))))))))))))))))))))))))))))))))))))))
   
 ```
-
-
-
-
-```{r}
-#combine the data here 
-```
-
-
-```{r}
-#covid map
-
-car_covid_data %>% 
-  group_by(state) %>% 
-  mutate(case_rate = cases/est_pop_2018) %>% 
-  ggplot(aes(fill = case_rate)) + 
-  geom_map(aes(map_id = state),
-           map = states_map) + 
-  expand_limits(x = states_map$long, y = states_map$lat) + 
-  theme_map()
-
-```
-
-```{r}
-mask_data %>% 
-  group_by(#need to make a state variable) %>% 
-    mutate(mask_rate = ALWAYS / est_pop_2018) %>% 
-      ggplot(aes(fill = mask_rate)) + 
-      geom_map(aes(map_id = states), 
-               map = states_map) + 
-      expand_limits(x = states_map$long, y = states_map$lat) + 
-  theme_map()
-```
-
-
-```{r}
-#where will you die of what
-covid_data %>% 
-  group_by(state) %>% 
-  mutate(case_rate = cases/est_pop_2018) %>% 
-  
-  # we need to 
-  ggplot(aes(fill = death_rate)) + 
-  geom_map(aes(map_id = state),
-           map = states_map) + 
-  expand_limits(x = states_map$long, y = states_map$lat) + 
-  theme_map()
-```
-
 
