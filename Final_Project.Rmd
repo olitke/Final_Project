@@ -11,8 +11,6 @@ output:
     code_download: true
 ---
 
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -37,4 +35,13 @@ library(sf)
 library(ggthemes)
 gs4_deauth()
 ```
+
+```{r}
+
+```
+
+
+
+
+
 
