@@ -100,6 +100,61 @@ mask_data %>%
   
 ```
 
+```{r}
+mask_data %>% 
+  mutate(alabama = COUNTYFP <= 1133,
+         alaska = COUNTYFP <= 2290,
+         arizona = COUNTYFP <= 4027,
+         arkansas = COUNTYFP <= 5149,
+         california = COUNTYFP <= 6115,
+         colorado = COUNTYFP <= 8125,
+         conneticut = COUNTYFP <= 9015,
+         delaware = COUNTYFP <= 10005,
+         district_of_columbia = COUNTYFP <= 11001,
+         florida = COUNTYFP <= 12133,
+         georgia = COUNTYFP <= 13321,
+         hawaii = COUNTYFP <= 15009,
+         idaho = COUNTYFP <= 16087,
+         illinois = COUNTYFP <= 17203,
+         indiana = COUNTYFP <= 18183,
+         iowa = COUNTYFP <= 19197,
+         kansas = COUNTYFP <= 20209,
+         kentucky = COUNTYFP < 21000,
+         louisiana = COUNTYFP < 22000,
+         maine = COUNTYFP < 23000,
+         maryland = COUNTYFP < 24000,
+         massachusetts = COUNTYFP < 25000,
+         michigan = COUNTYFP < 26000,
+         minnesota = COUNTYFP < 27000,
+         mississippi = COUNTYFP < 28000,
+         missouri = COUNTYFP < 29000,
+         montana = COUNTYFP < 30000,
+         nebraska = COUNTYFP < 31000,
+         nevada = COUNTYFP < 32000,
+         new_hampshire = COUNTYFP < 33000,
+         new_jersey = COUNTYFP < 34000,
+         new_mexico = COUNTYFP < 35000,
+         new_york = COUNTYFP < 36000,
+         north_carolina = COUNTYFP < 37000,
+         north_dakota = COUNTYFP < 38000,
+         ohio = COUNTYFP < 39000,
+         oklahoma = COUNTYFP < 40000,
+         oregon = COUNTYFP < 41000,
+         pennslyvania = COUNTYFP < 42000,
+         rhode_island = COUNTYFP < 44000,
+         south_carolina = COUNTYFP < 45000,
+         south_dakota = COUNTYFP < 46000,
+         tennessee = COUNTYFP < 47000,
+         texas = COUNTYFP < 48000,
+         utah = COUNTYFP < 49000,
+         vermont = COUNTYFP < 50000,
+         virginia = COUNTYFP < 51000,
+         washington = COUNTYFP < 53000,
+         west_virginia = COUNTYFP < 54000,
+         wisconsin = COUNTYFP < 55000,
+         wyoming = COUNTYFP < 56000,)
+```
+
 
 
 
