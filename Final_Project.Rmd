@@ -46,6 +46,20 @@ census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_ce
 
 In July, the New York Times published an article entitled [A Detailed Map of Who Is Wearing Masks in the U.S.](https://www.nytimes.com/interactive/2020/07/17/upshot/coronavirus-face-mask-map.html) The interactive map was informative regarding the presence of mask-wearing across the United States. To create this map, columnists Josh Katz, Margot Sanger-Katz and Kevin Quealy analyzed information from the County-level Data for Mask Use in the United States. This dataset, paired with the COVID-19 data we've been using in our class throughout the module, allowed us to assess the relationship between mask-wearing and COVID cases across the country. Specifically, are states where mask-wearing is greater, are COVID cases lower?
 
+<<<<<<< HEAD
+=======
+![](IMG_0013.png)
+
+We started by gathering and slimming down our data:
+
+```{r, eval = FALSE}
+# combining and setting up our data sets 
+
+covid_data <- covid19 %>% 
+  left_join(mask_data, 
+            by = c("fips" = "COUNTYFP"))
+```
+>>>>>>> 875c8c0bdef9e9e5c9b9968876ffe336007874f5
 ## COVID-19 Map
 
 In order to  find the correlation between total COVID-19 cases and mask wearing, we created two individual maps for each to display the COVID-19 data and mask data in each state. 
@@ -53,24 +67,27 @@ In order to  find the correlation between total COVID-19 cases and mask wearing,
 ```{r, eval = FALSE}
 #covid map
 
-# states_map = map_data("state")
-# 
-# covid_map <- covid_data %>%
-#   filter(date == max(date)) %>%
-#   mutate(state = str_to_lower(state)) %>%
-#   left_join(census_pop_est_2018,
-#             by = "state") %>%
-#   group_by(state) %>%
-#   mutate(case_rate = sum(cases)/est_pop_2018) %>%
-#   ggplot(aes(fill = case_rate)) +
-#   geom_map(aes(map_id = state),
-#            map = states_map) +
-#   labs(title = "Percentage of Current COVID-19 Cases in the US by Population", fill = "Case Rate") +
-#   expand_limits(x = states_map$long, y = states_map$lat) +
-#   theme_map()
-# 
-# covid_map
+states_map = map_data("state")
 
+covid_map <- covid_data %>%
+  filter(date == max(date)) %>%
+  mutate(state = str_to_lower(state)) %>%
+  left_join(census_pop_est_2018,
+            by = "state") %>%
+  group_by(state) %>%
+  mutate(case_rate = sum(cases)/est_pop_2018) %>%
+  ggplot(aes(fill = case_rate)) +
+  geom_map(aes(map_id = state),
+           map = states_map) +
+  labs(title = "Percentage of Current COVID-19 Cases in the US by Population", fill = "Case Rate") +
+  expand_limits(x = states_map$long, y = states_map$lat) +
+  theme_map()
+
+covid_map
+
+```
+
+```{r}
 county_map = map_data("county") %>% 
   dplyr::rename(state = region, region = subregion) %>% 
   filter(state == "georgia")
@@ -86,7 +103,6 @@ covid_data %>%
            map = county_map) + 
   expand_limits(x = county_map$long, y = county_map$lat) + 
   theme_map()
-
 ```
 
 
@@ -115,6 +131,26 @@ mask_map
 # figure out which date(s) we want to use
 ```
 
+```{r, eval = FALSE}
+#covid map
+
+states_map = map_data("state")
+
+mask_map <- covid_data %>% 
+  filter(date == max(date)) %>% 
+  mutate(state = str_to_lower(state)) %>% 
+  left_join(census_pop_est_2018, 
+            by = "state") %>% 
+  group_by(state) %>% 
+  mutate(case_rate = sum(cases)/est_pop_2018)
+
+#  ggplot(aes(fill = case_rate)) + 
+#  geom_map(aes(map_id = state),
+#           map = states_map) + 
+#  expand_limits(x = states_map$long, y = states_map$lat) + 
+#  theme_map()
+```
+
 Our mask data shows the frequency of mask wearing in each state. The New York Times article analyzed the map and determined that mask use is high in the Northeast and the West, and lower in the Plains and parts of the South. The article also focused on differences on the local level. For instance, mask wearing is high in Washington, D.C, but in rural subsets of Maryland and Virginia, norms seem to differ. The columnists found that generally in urban areas, mask wearing was more common. 
 
 However, the New York Times also reported that mask-wearing in the U.S was relatively high. This could be because they conducted a self reported survey. The survey asked: "how often do you wear a mask in public when you expect to be within 6ft of another person?" The options were: "always, frequently, sometimes, rarely, and never." On average, around 80% of Americans report mask use either "always" or "frequently" in public within 6ft of others. 
@@ -136,11 +172,29 @@ So what is the relationship between mask wearing and COVID-19 infection? Below, 
 
 
 
+<<<<<<< HEAD
 
 ```
 
 
 ## Conclusion
+=======
+```{r}
+georgia_map <- get_stamenmap(
+  bbox = c(left = -89.165, bottom = 29.516, right = -77.190, top = 35.791),
+  maptype = "terrain",
+  zoom = 7)
+
+#covid_data %>%
+#ggplot(aes(fill = ALWAYS)) +
+#  geom_map(aes(map_id = county),
+#               map = county_map) +
+#  expand_limits(x = county_map$long, y = county_map$lat)+
+#  theme_map()
+```
+
+
+>>>>>>> 875c8c0bdef9e9e5c9b9968876ffe336007874f5
 
 We successfully joined the mask dataset with our timely COVID dataset, and created maps that illustrate that relationship. We can conclude that states with higher infection rates generally report... mask use is...
 
