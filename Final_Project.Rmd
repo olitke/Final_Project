@@ -87,24 +87,6 @@ covid_map
 
 ```
 
-```{r}
-county_map = map_data("county") %>% 
-  dplyr::rename(state = region, region = subregion) %>% 
-  filter(state == "georgia")
-
-covid_data %>% 
-  filter(state == "Georgia") %>% 
-  mutate(county = str_to_lower(county), 
-         county = ifelse(county == "dekalb", "de kalb", county)) %>% 
-  group_by(county) %>% 
-  filter(date == max(date)) %>% 
-  ggplot(aes(fill = cases)) + 
-  geom_map(aes(map_id = county), 
-           map = county_map) + 
-  expand_limits(x = county_map$long, y = county_map$lat) + 
-  theme_map()
-```
-
 
 Our COVID-19 data shows the most recent case rates in each state. The map shows that currently, cases are highest in the mid-west. 
 
@@ -177,21 +159,52 @@ So what is the relationship between mask wearing and COVID-19 infection? Below, 
 ```
 
 
+## Let's Take a Closer Look
+
+at georgia 
+
+```{r}
+county_map = map_data("county") %>% 
+  dplyr::rename(state = region, region = subregion) %>% 
+  filter(state == "georgia")
+
+covid_data %>% 
+  filter(state == "Georgia") %>% 
+  mutate(county = str_to_lower(county), 
+         county = ifelse(county == "dekalb", "de kalb", county)) %>% 
+  group_by(county) %>% 
+  filter(date == max(date)) %>% 
+  ggplot(aes(fill = cases)) + 
+  geom_map(aes(map_id = county), 
+           map = county_map) + 
+  expand_limits(x = county_map$long, y = county_map$lat) + 
+  theme_map()
+```
+
+```{r}
+county_map = map_data("county") %>% 
+  dplyr::rename(state = region, region = subregion) %>% 
+  filter(state == "georgia")
+
+covid_data %>% 
+  filter(state == "Georgia") %>% 
+  mutate(county = str_to_lower(county), 
+         county = ifelse(county == "dekalb", "de kalb", county)) %>% 
+  group_by(county) %>% 
+  filter(date == max(date)) %>% 
+  ggplot(aes(fill = ALWAYS)) + 
+  geom_map(aes(map_id = county), 
+           map = county_map) + 
+  expand_limits(x = county_map$long, y = county_map$lat) + 
+  theme_map()
+
+```
+
+
+write our conclusions here... something about how population density can affect covid cases even if people wear masks a lot 
+
 ## Conclusion
 =======
-```{r}
-georgia_map <- get_stamenmap(
-  bbox = c(left = -89.165, bottom = 29.516, right = -77.190, top = 35.791),
-  maptype = "terrain",
-  zoom = 7)
-
-#covid_data %>%
-#ggplot(aes(fill = ALWAYS)) +
-#  geom_map(aes(map_id = county),
-#               map = county_map) +
-#  expand_limits(x = county_map$long, y = county_map$lat)+
-#  theme_map()
-```
 
 
 >>>>>>> 875c8c0bdef9e9e5c9b9968876ffe336007874f5
