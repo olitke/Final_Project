@@ -53,24 +53,42 @@ In order to  find the correlation between total COVID-19 cases and mask wearing,
 ```{r, eval = FALSE}
 #covid map
 
-states_map = map_data("state")
+# states_map = map_data("state")
+# 
+# covid_map <- covid_data %>%
+#   filter(date == max(date)) %>%
+#   mutate(state = str_to_lower(state)) %>%
+#   left_join(census_pop_est_2018,
+#             by = "state") %>%
+#   group_by(state) %>%
+#   mutate(case_rate = sum(cases)/est_pop_2018) %>%
+#   ggplot(aes(fill = case_rate)) +
+#   geom_map(aes(map_id = state),
+#            map = states_map) +
+#   labs(title = "Percentage of Current COVID-19 Cases in the US by Population", fill = "Case Rate") +
+#   expand_limits(x = states_map$long, y = states_map$lat) +
+#   theme_map()
+# 
+# covid_map
 
-covid_map <- covid_data %>% 
+county_map = map_data("county") %>% 
+  dplyr::rename(state = region, region = subregion) %>% 
+  filter(state == "georgia")
+
+covid_data %>% 
+  filter(state == "Georgia") %>% 
+  mutate(county = str_to_lower(county), 
+         county = ifelse(county == "dekalb", "de kalb", county)) %>% 
+  group_by(county) %>% 
   filter(date == max(date)) %>% 
-  mutate(state = str_to_lower(state)) %>% 
-  left_join(census_pop_est_2018, 
-            by = "state") %>% 
-  group_by(state) %>% 
-  mutate(case_rate = sum(cases)/est_pop_2018) %>% 
-  ggplot(aes(fill = case_rate)) + 
-  geom_map(aes(map_id = state),
-           map = states_map) + 
-  labs(title = "Percentage of Current COVID-19 Cases in the US by Population", fill = "Case Rate") +
-  expand_limits(x = states_map$long, y = states_map$lat) + 
+  ggplot(aes(fill = cases)) + 
+  geom_map(aes(map_id = county), 
+           map = county_map) + 
+  expand_limits(x = county_map$long, y = county_map$lat) + 
   theme_map()
 
-covid_map
 ```
+
 
 Our COVID-19 data shows the most recent case rates in each state. The map shows that currently, cases are highest in the mid-west. 
 
@@ -115,6 +133,7 @@ So what is the relationship between mask wearing and COVID-19 infection? Below, 
 # what is the correllation between mask wearing and covid cases? make a map here. either make a faceted graph or a map here
 
 # final map.... maybe we could overlay it with colored dots that show percentages of mask wearing in each county
+
 
 
 
