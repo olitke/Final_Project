@@ -20,7 +20,10 @@ bad_drivers <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/
 
 covid19 <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
 
-census_pop_est_2018 <- read.csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1")
+census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1") %>% 
+  separate(state, into = c("dot","state"), extra = "merge") %>% 
+  select(-dot) %>% 
+  mutate(state = str_to_lower(state))
 ```
 
 ```{r}
@@ -33,13 +36,23 @@ library(gplots)
 library(RColorBrewer)
 library(sf)
 library(ggthemes)
-gs4_deauth()
 ```
 
 ```{r}
-covid19 %>%
-  left_join(census_pop_est_2018,
-            by = c("state" = "state"))
+bad_drivers_lower <- bad_drivers %>% 
+  mutate(state = str_to_lower(State))
+
+car_covid_data <- covid19 %>% 
+  filter(date == max(date)) %>% 
+  mutate(state = str_to_lower(state)) %>% 
+  left_join(census_pop_est_2018, 
+            by = "state") %>% 
+  left_join(bad_drivers_lower, 
+            by = "state") %>% 
+  select(!State & !date) %>% 
+  na.omit()
+  
+car_covid_data
 ```
 
 
