@@ -11,25 +11,149 @@ output:
     code_download: true
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+
+
+
+```r
+library(tidyverse)
 ```
 
-```{r libraries}
-library(tidyverse)
+```
+## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.0 ──
+```
+
+```
+## ✓ ggplot2 3.3.2     ✓ purrr   0.3.4
+## ✓ tibble  3.0.4     ✓ dplyr   1.0.2
+## ✓ tidyr   1.1.2     ✓ stringr 1.4.0
+## ✓ readr   1.4.0     ✓ forcats 0.5.0
+```
+
+```
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+```
+
+```r
 library(lubridate)
+```
+
+```
+## 
+## Attaching package: 'lubridate'
+```
+
+```
+## The following objects are masked from 'package:base':
+## 
+##     date, intersect, setdiff, union
+```
+
+```r
 library(openintro)
+```
+
+```
+## Loading required package: airports
+```
+
+```
+## Loading required package: cherryblossom
+```
+
+```
+## Loading required package: usdata
+```
+
+```r
 library(maps)
+```
+
+```
+## 
+## Attaching package: 'maps'
+```
+
+```
+## The following object is masked from 'package:purrr':
+## 
+##     map
+```
+
+```r
 library(ggmap)
+```
+
+```
+## Google's Terms of Service: https://cloud.google.com/maps-platform/terms/.
+```
+
+```
+## Please cite ggmap if you use it! See citation("ggmap") for details.
+```
+
+```r
 library(gplots)
+```
+
+```
+## 
+## Attaching package: 'gplots'
+```
+
+```
+## The following object is masked from 'package:stats':
+## 
+##     lowess
+```
+
+```r
 library(RColorBrewer)
 library(sf)
+```
+
+```
+## Linking to GEOS 3.8.1, GDAL 3.1.1, PROJ 6.3.1
+```
+
+```r
 library(ggthemes)
 library(usmap)
 library(plotly)
 ```
 
-```{r data}
+```
+## 
+## Attaching package: 'plotly'
+```
+
+```
+## The following object is masked from 'package:ggmap':
+## 
+##     wind
+```
+
+```
+## The following object is masked from 'package:ggplot2':
+## 
+##     last_plot
+```
+
+```
+## The following object is masked from 'package:stats':
+## 
+##     filter
+```
+
+```
+## The following object is masked from 'package:graphics':
+## 
+##     layout
+```
+
+
+```r
 covid19 <- read.csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv")
 
 mask_data <- read.csv("https://raw.githubusercontent.com/kristinbryan/covid-19-data/master/mask-use/mask-use-by-county.csv")
@@ -38,6 +162,15 @@ census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_ce
   separate(state, into = c("dot","state"), extra = "merge") %>% 
   select(-dot) %>% 
   mutate(state = str_to_lower(state))
+```
+
+```
+## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   state = col_character(),
+##   est_pop_2018 = col_double()
+## )
 ```
 
 
@@ -50,7 +183,8 @@ In July, the New York Times published an article entitled [A Detailed Map of Who
 
 We started by gathering and slimming down our data:
 
-```{r, eval = FALSE}
+
+```r
 # combining and setting up our data sets 
 
 covid_data <- covid19 %>% 
@@ -61,7 +195,8 @@ covid_data <- covid19 %>%
 
 In order to  find the correlation between total COVID-19 cases and mask wearing, we created two individual maps for each to display the COVID-19 data and mask data in each state. 
 
-```{r, eval = FALSE}
+
+```r
 #covid map
 
 states_map = map_data("state")
@@ -86,7 +221,8 @@ Our COVID-19 data shows the most recent case rates in each state. The map shows 
 
 To find out how often people in the US were wearing masks, we created a map to display mask use. This map shows the percentage of people who always wear masks when leaving the house.  
 
-```{r, eval = FALSE}
+
+```r
 county_map = map_data("county") %>% 
   dplyr::rename(state = region, region = subregion)
 
@@ -116,11 +252,11 @@ Rather than political party, and by county, we wanted to determine the relations
 
 So what is the relationship between mask wearing and COVID-19 infection? Below, we mapped the data to show the trajectory of COVID-19 cases from the first instances of the pandemic to now in relationship to the frequency of mask use in each county. 
 
-```{r}
+
+```r
 # what is the correllation between mask wearing and covid cases? make a map here. either make a faceted graph or a map here
 
 # final map.... maybe we could overlay it with colored dots that show percentages of mask wearing in each county
-
 ```
 
 We successfully joined the mask dataset with our timely COVID dataset, and created maps that illustrate that relationship. We can conclude that states with higher infection rates generally report... mask use is...
