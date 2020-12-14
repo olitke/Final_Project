@@ -25,7 +25,7 @@ library(gplots)
 library(RColorBrewer)
 library(sf)
 library(ggthemes)
-library(usmap)
+# library(usmap)
 library(plotly)
 ```
 
@@ -122,6 +122,22 @@ So what is the relationship between mask wearing and COVID-19 infection? Below, 
 # final map.... maybe we could overlay it with colored dots that show percentages of mask wearing in each county
 
 ```
+
+```{r}
+georgia_data <- covid_data %>%
+  filter(state %in% c("Georgia")) %>%
+  distinct(county)
+
+"georgia_data %>% 
+  mutate(county = str_to_lower(county)) %>% 
+  drop_na() %>% 
+  ggplot(aes(fill = ALWAYS)) + 
+  geom_map(aes(map_id = county),
+           map = county_map) + 
+  expand_limits(x = county_map$long, y = county_map$lat) + 
+  theme_map()"
+```
+
 
 We successfully joined the mask dataset with our timely COVID dataset, and created maps that illustrate that relationship. We can conclude that states with higher infection rates generally report... mask use is...
 
