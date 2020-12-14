@@ -2,7 +2,13 @@
 title: "Final Project"
 author: "Kristin Bryan, Olivia Litke, Mary McDonnell"
 date: "12/13/2020"
-output: html_document
+output: 
+  html_document:
+    keep_md: TRUE
+    toc: TRUE
+    toc_float: TRUE
+    df_print: paged
+    code_download: true
 ---
 
 
@@ -11,8 +17,24 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r}
+```{r data}
 bad_drivers <- read.csv("https://raw.githubusercontent.com/fivethirtyeight/data/master/bad-drivers/bad-drivers.csv")
 
-#libraries, download code button, table of contents (copy paste from classwork stuff)
+covid19 <- read_csv("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv")
+
+census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_census_2018_state_pop_est.csv?dl=1")
 ```
+
+```{r}
+library(tidyverse)
+library(lubridate)
+library(openintro)
+library(maps)
+library(ggmap)
+library(gplots)
+library(RColorBrewer)
+library(sf)
+library(ggthemes)
+gs4_deauth()
+```
+
