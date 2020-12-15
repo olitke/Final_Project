@@ -152,10 +152,6 @@ So what is the relationship between mask wearing and COVID-19 infection? Below, 
 
 # final map.... maybe we could overlay it with colored dots that show percentages of mask wearing in each county
 
-
-
-<<<<<<< HEAD
-
 ```
 
 
@@ -163,7 +159,7 @@ So what is the relationship between mask wearing and COVID-19 infection? Below, 
 
 at georgia 
 
-```{r}
+```{r, eval = FALSE}
 county_map = map_data("county") %>% 
   dplyr::rename(state = region, region = subregion) %>% 
   filter(state == "georgia")
@@ -181,7 +177,7 @@ covid_data %>%
   theme_map()
 ```
 
-```{r}
+```{r, eval = FALSE}
 county_map = map_data("county") %>% 
   dplyr::rename(state = region, region = subregion) %>% 
   filter(state == "georgia")
