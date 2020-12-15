@@ -4,6 +4,7 @@ author: "Kristin Bryan, Olivia Litke, Mary McDonnell"
 date: "12/13/2020"
 output: 
   html_document:
+    theme: cosmo
     keep_md: TRUE
     toc: TRUE
     toc_float: TRUE
@@ -22,11 +23,11 @@ library(openintro)
 library(maps)
 library(ggmap)
 library(gplots)
-library(RColorBrewer)
+#library(RColorBrewer)
 library(sf)
 library(ggthemes)
-library(usmap)
-library(plotly)
+#library(usmap)
+#library(plotly)
 library(patchwork)
 ```
 
@@ -42,7 +43,7 @@ census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_ce
 ```
 
 # Welcome to our final!
-## Analyzing the Relationship Between COVID-19 and Mask Use
+# Analyzing the Relationship Between COVID-19 and Mask Use
 
 ![](IMG_0013.png)
 
@@ -114,8 +115,6 @@ The article further stressed the implications of a national mask wearing mandate
 
 So what is the relationship between mask wearing and COVID-19 infection? When we view our maps side by side, we observe patterns between the two. 
 
-Our data shows 
-
 ```{r, width = 200}
 (covid_map | mask_map) + plot_annotation(title = "COVID-19 vs. Masks")
 ```
@@ -128,7 +127,7 @@ Rather than political party, and by county, we wanted to determine the relations
 
 ## Let's Take a Closer Look
 
-In order to see the 
+In order to analyze the relationship between mask use and COVID-19 spread, we took a closer look at Georgia to see how the two compared on the county level.
 
 ```{r}
 county_map = map_data("county") %>% 
@@ -190,9 +189,9 @@ Georigia Election Results 2020- via politico https://www.politico.com/2020-elect
 
 Urban areas like Atlanta and Columbus voted overwhelmingly blue in 2020. Abrams facilitated an uptake in voter registration and turnout in these places, which are also among areas in Georgia where mask-wearing is highest. Cases in Atlanta are also roughly around 40,000, the most cases statewide. However, with a population of nearly 500,000, this can be expected. Additionally, in rural areas, there is not necessarily more cases than in Atlanta, but residents are less likely to wear a mask. Generally, residents also voted Republican in these areas. For example, Dade county has approximately 10,000 cases, but there is a 7% chance an individual will be masked in public, and voted about 80% in favor of Trump over Biden (20%). This almost completely contrasts with urban counties in Atlanta: pro-biden, more cases, and far greater mask-wearing likelihood. It is interesting to consider Abrams' role in registering voters in Georgia that helped flip the state in 2020, and how those voting demographics correspond to the NYT mask wearing data, and the dataset exploring COVID cases nationwide. It appears as though the assertion that political affiliation corresponds to mask wearing remains true in Georgia.
 
-## Conclusion
+# Conclusion
 
-
+Our group concluded that there is evidence to suggest that mask wearing is an effective precaution to take when it comes to protecting others and yourself from COVID-19. We also found that certain underlying variables, such as political affiliation, population density, and city vs. country surroundings factored into the relationship between mask-use and COVID cases. As seen with Atlanta, Georgia, COVID cases were comparatively higher than surrounding counties, as was mask-wearing probability. This goes against our original thought process: higher mask use did not necessarily mean less COVID cases. However, we maintain that this trend is attributed to population density rather than the effectiveness of mask-wearing. It makes sense that a bustling metropolitan area of 500,000 people has more cases than less densely populated areas. For instance, Dade county has about 16,000 people. While our initial thought process diverted slightly as our project progressed, it's clear that the relationship between mask wearing and COVID in the United States is strictly correlated in several respects. 
 
 <!-- >>>>>>> 875c8c0bdef9e9e5c9b9968876ffe336007874f5 -->
 <!-- >>>>>>> f615ca4fe7f735bf9f293f89b1d3d4e392070fc9 -->
