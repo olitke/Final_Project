@@ -13,7 +13,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, error = FALSE)
 ```
 
 ```{r libraries}
@@ -42,7 +42,7 @@ census_pop_est_2018 <- read_csv("https://www.dropbox.com/s/6txwv3b4ng7pepe/us_ce
 # Welcome to our final!
 # Analyzing the Relationship Between COVID-19 and Mask Use
 
-![](IMG_0013.png)
+![Art by Olivia Litke](IMG_0013.png)
 
 ## Research and Project Inspiration
 
@@ -75,7 +75,8 @@ covid_map <- covid_data %>%
            map = states_map) +
   labs(title = "Current COVID-19 Cases", fill = "% Infected") +
   expand_limits(x = states_map$long, y = states_map$lat) +
-  theme_map()
+  theme_map() + 
+  theme(legend.background = element_blank())
 
 covid_map
 ```
@@ -96,7 +97,8 @@ mask_map <- covid_data %>%
            map = county_map) + 
   labs(title = "Mask Use in each US County", fill = "% of Mask Use") +
   expand_limits(x = county_map$long, y = county_map$lat) + 
-  theme_map()
+  theme_map() +
+  theme(legend.background = element_blank())
 
 mask_map
 ```
@@ -112,7 +114,7 @@ The article further stressed the implications of a national mask wearing mandate
 
 So what is the relationship between mask wearing and COVID-19 infection? When we view our maps side by side, we observe patterns between the two. 
 
-```{r, width = 200}
+```{r, fig.width = 8, fig.asp = .4}
 (covid_map | mask_map) + plot_annotation(title = "COVID-19 vs. Masks")
 ```
 
@@ -142,7 +144,8 @@ georgia_cases <- covid_data %>%
            map = county_map) + 
   labs(title = "Cases per County", fill = "Cases") +
   expand_limits(x = county_map$long, y = county_map$lat) + 
-  theme_map()
+  theme_map() + 
+  theme(legend.background = element_blank())
 ```
 
 ```{r}
@@ -161,11 +164,12 @@ georgia_masks <- covid_data %>%
            map = county_map) + 
   labs(title = "% Mask Use per County", fill = "") +
   expand_limits(x = county_map$long, y = county_map$lat) + 
-  theme_map()
+  theme_map() + 
+  theme(legend.background = element_blank())
 
 ```
 
-```{r}
+```{r, fig.width = 8, fig.asp = .4}
 (georgia_cases | georgia_masks) + 
   plot_annotation(title = "COVID-19 vs. Masks in Georgia")
 ```
