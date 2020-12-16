@@ -23,11 +23,8 @@ library(openintro)
 library(maps)
 library(ggmap)
 library(gplots)
-#library(RColorBrewer)
 library(sf)
 library(ggthemes)
-#library(usmap)
-#library(plotly)
 library(patchwork)
 ```
 
